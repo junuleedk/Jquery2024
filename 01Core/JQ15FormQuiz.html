@@ -5,18 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="../common/jquery/jquery-3.7.1.js"></script>
-    <!-- 연습문제1]비밀번호 확인기능 구현하기
-1.암호1을 입력할때 무조건 암호2 부분을 비워준다.
-2.암호2 부분을 입력할때 암호가 일치하게 되면 
-	<span id="msg"> 부분의 텍스트를 빨간색으로 표현한다.
-3.암호가 틀렸을때 -> 암호가틀립니다(검은색)
-	암호가 일치할때 -> 암호가일치합니다(빨간색)		
-	해당 조건을 만족하는 jQuery코드를 작성하시오.
- -->
-
-    <!-- 연습문제2]select에서 선택한 도메인을 email2에 입력하시오.
-	직접입력을 선택하면 readonly속성을 해제하여 사용자가 직접
-	입력할 수 있도록 구현하시오.
+<!--    연습문제1]비밀번호 확인기능 구현하기
+        1.암호1을 입력할때 무조건 암호2 부분을 비워준다.
+        2.암호2 부분을 입력할때 암호가 일치하게 되면 
+          <span id="msg"> 부분의 텍스트를 빨간색으로 표현한다.
+        3.암호가 틀렸을때 -> 암호가틀립니다(검은색)
+        암호가 일치할때 -> 암호가일치합니다(빨간색)		
+        해당 조건을 만족하는 jQuery코드를 작성하시오.
  -->
     <script>
       $(function () {
@@ -27,7 +22,7 @@
           //메세지 출력 부분도 삭제한다.
           $('#msg').text('');
         });
-        //패스워드2를 입력할 때 패스워드1과 일치여부를 확인한다.dd
+        //패스워드2를 입력할 때 패스워드1과 일치여부를 확인한다.
         $('#pwd2').keyup(function () {
           let pw1 = $('#pwd1').val();
           let pw2 = $(this).val();
@@ -47,5 +42,41 @@
     암호입력 : <input type="password" id="pwd1" />
     <br />
     암호확인 : <input type="password" id="pwd2" />
+
+<!--    연습문제2]select에서 선택한 도메인을 email2에 입력하시오.
+        직접입력을 선택하면 readonly속성을 해제하여 사용자가 직접
+        입력할 수 있도록 구현하시오.
+-->  
+  <script>
+    $(function() {
+      $('#selectEmail').change(function() {
+        console.log($(this).val(), "선택됨");
+        //<select>에서 선택한 값
+        let choiceVal = $(this).val();
+        if(choiceVal == 'direct') {
+          //직접입력을 선택하면 기존에 입력된 값을 지운다.
+          $('#email2').val('');
+          //사용자입력을 위해 readonly속성을 비활성한다.
+          $('#email2').val('').attr('readonly', false);
+        }
+        else{
+          //도메인을 선택한다면 값을 입력해준다.
+          $('#email2').val(choiceVal);
+          //readonly속성을 활성화한다.
+          $('#email2').val('').attr('readonly', true);
+        }
+      });
+    });
+  </script>  
+    <h2>선택상자에서 선택된값을 텍스트상자에 출력하기</h2>
+    이메일 : <input type="text" id="email1" style="width: 100px" /> @
+    <input type="text" id="email2" style="width: 150px" readonly />
+    <select id="selectEmail">
+      <option value="">--선택하세요--</option>
+      <option value="direct">직접입력</option>
+      <option value="naver.com">네이버</option>
+      <option value="hanmail.net">다음(한메일)</option>
+      <option value="gmail.com">구글(gmail)</option>
+    </select>
   </body>
 </html>
