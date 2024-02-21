@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script>
+$(function(){
+    $('#btnJSON').click(function(){
+        $.ajax({
+            // url : 'https://sample.bmaster.kro.kr/contacts?pageno=4',
+            url : 'https://sample.bmaster.kro.kr/contacts',
+            type : 'get',
+            data : {'pageno' : $('#pageno').val()},
+            dataType : 'json',
+            success : function(rData){
+                console.log(rData);
+                let str = '';
+                //5개의 객체를 가진 배열을 통해 반복 
+                $.each(rData.contacts, function(idx, d){
+                    console.log(idx, d);
+                    str += '<tr>'
+                        +'    <td>'+d.no+'</td>'
+                        +'    <td>'+d.name+'</td>'
+                        +'    <td>'+d.tel+'</td>'
+                        +'    <td><img src="'+d.photo+'"></td>'
+                        +'</tr>'
+                });
+                //$('#displayTable').append(str);
+                $(str).prependTo('#displayTable');
+            },
+            error : function(eData){
+                console.error(eData);
+            }
+        });
+    });
+});
+</script>
+</head>
+<body>
+    <h2>$.ajax() 메소드 사용하기(퀴즈)</h2>
+    <select id="pageno">
+        <option value="1">1페이지</option>
+        <option value="2">2페이지</option>
+        <option value="3">3페이지</option>
+        <option value="4">4페이지</option>
+        <option value="5">5페이지</option>
+        <option value="6">6페이지</option>
+        <option value="7">7페이지</option>
+        <option value="8">8페이지</option>
+        <option value="9">9페이지</option>
+        <option value="10">10페이지</option>
+    </select>
+	<button id="btnJSON">JSON데이터 읽어오기</button>	
+    <table border='1'>        
+        <tr>
+            <th>no</th>
+            <th>name</th>
+            <th>tel</th>
+            <th>photo</th>
+        </tr>
+        <tbody id="displayTable">
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+        </tbody>        
+    </table>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

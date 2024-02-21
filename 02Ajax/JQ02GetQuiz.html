@@ -6,9 +6,15 @@
     <title>Document</title>
     <script src="../common/jquery/jquery-3.7.1.js"></script>
     <script>
+      /*
+      참조URL : JSONPlaceholder - Free Fake REST API (typicode.com)
+      하단의 guide 링크 ⇒ 하단의 /albums/1/photos 링크 클릭
+      아래와 같은 결과가 나오도록 $.get()함수를 통해 구현하시오.
+      이미지가 너무 크면 일괄적으로 80px정도로 조절하세요. 
+      */
       $(function () {
         $('#btnJSON').click(function () {
-
+          
           //선택한 페이지번호를 가져온다.
        
           //요청URL은 내부의 json파일을 사용한다.
@@ -17,26 +23,28 @@
             {},
             function (rData, status, xhr) {
               let str = '';
-              $.each(rData, function (index, data) {
-                //하나의 객체가 data로 넘어온다
-                console.log(index, data);
-                //각 객체의 key를 통해 데이터를 파싱한다.
-                str +=
-                  '<tr>' +
-                  '<td>' +
-                  data.id +
-                  '</td>' +
-                  '<td>' +
-                  data.title +
-                  '</td>' +
-                  '<td><img src="' +
-                  data.thumbnailUrl +
-                  '" style="width: 80px; height: 80px;" ></td>' +
-                  '</tr>';
-              });
-              //table 하단에 파싱한 내용을 추가한다.
-              // $('#displayTable').append(str);
-              $('#displayTable').append(str);
+              if(status == 'success') {
+                console.log(rData);
+                $.each(rData, function (index, data) {
+                  //하나의 객체가 data로 넘어온다
+                  console.log(index, data);
+                  //각 객체의 key를 통해 데이터를 파싱한다.
+                  str += '<tr>' +
+                    '<td>' +
+                    data.id +
+                    '</td>' +
+                    '<td>' +
+                    data.title +
+                    '</td>' +
+                    '<td><img src="' +
+                    data.thumbnailUrl +
+                    '" style="width: 80px; height: 80px;" ></td>' +
+                    '</tr>';
+                });
+                //table 하단에 파싱한 내용을 추가한다.
+                // $('#displayTable').append(str);
+                $('#displayTable').append(str);
+              }
             }
           );
         });
